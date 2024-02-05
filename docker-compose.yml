@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  api-nipe-nest-js:
+    image: postgres:alpine
+    ports:
+      - "5430:5430"
+    container_name: "api-nipe-nest-js"
+    restart: always
+    volumes:
+      - ./banco-de-dados-evento-api:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+
+volumes:
+  banco-de-dados-evento-api:
