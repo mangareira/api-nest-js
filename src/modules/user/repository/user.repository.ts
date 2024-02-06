@@ -8,4 +8,5 @@ export abstract class IUserRepository {
   abstract findById(id: string): Promise<UserCreatedDTO | null>
   abstract findAll(): Promise<UserCreatedDTO[]>
   abstract deleteById(id: string): Promise<UserCreatedDTO | null>
+  abstract findByEmail(email: string): Promise<UserCreatedDTO | null>
 }
