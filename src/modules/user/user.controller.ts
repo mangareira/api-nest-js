@@ -1,19 +1,27 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common'
 import { CreateUserUseCase } from './useCases/create-user.usecase'
 import {
   CreateUserResponseSchemaDTO,
   CreateUserSchemaDTO,
 } from './schemas/create-user.schema'
+import { AuthGuard } from 'src/infra/provider/auth-guard.provider'
+import { GetAllUserUseCase } from './useCases/getAll-user.usecase'
 
 @Controller('/user')
 export class UserController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private getAllUserUseCase: GetAllUserUseCase,
+  ) {}
 
   @Post()
   async create(@Body() data: CreateUserSchemaDTO) {
@@ -23,5 +31,13 @@ export class UserController {
     } catch {
       throw new HttpException('Erro bad request', HttpStatus.BAD_REQUEST)
     }
+  }
+  @Get()
+  @UseGuards(AuthGuard)
+  async GetAllUserUseCase(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @Request() req,
+  ) {
+    return await this.getAllUserUseCase.execute()
   }
 }
