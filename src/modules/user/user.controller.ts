@@ -5,7 +5,6 @@ import {
   HttpException,
   HttpStatus,
   Post,
-  Request,
   UseGuards,
 } from '@nestjs/common'
 import { CreateUserUseCase } from './useCases/create-user.usecase'
@@ -34,10 +33,7 @@ export class UserController {
   }
   @Get()
   @UseGuards(AuthGuard)
-  async GetAllUserUseCase(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @Request() req,
-  ) {
+  async GetAllUserUseCase() {
     return await this.getAllUserUseCase.execute()
   }
 }
